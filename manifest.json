@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "name": "copy.URL",
   "short_name": "copy.URL",
-  "description": "Copy address bar URL to clipboard in one click",
-  "version": "0.0.2",
+  "description": "Copy current URL to clipboard in one click.",
+  "version": "0.0.3",
   "icons": {
     "16": "assets/icons/icon16.png",
     "48": "assets/icons/icon48.png",
@@ -16,7 +16,8 @@
   "background": {
     "scripts": [
       "assets/scripts/browser_action.js"
-    ]
+    ],
+    "persistent": false
   },
   "permissions": [
     "activeTab",

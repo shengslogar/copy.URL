@@ -1,21 +1,35 @@
 (function () {
-  let badgeTextTimeout = null;
+  let badgeIndicatorTimeout = null;
 
-  this.onClicked.addListener(async ({ url }) => {
+  const showBadgeIndicator = () => {
+    clearTimeout(badgeIndicatorTimeout);
+    this.setBadgeText({ text: '\u2713' });
+
+    badgeIndicatorTimeout = setTimeout(() => {
+      this.setBadgeText({ text: '' });
+    }, 500);
+  };
+
+  this.onClicked.addListener(({ url }) => {
+
+    console.log(url);
+    if (url == null) {
+      return;
+    }
+
     const input = document.createElement('input');
     input.value = url;
 
     document.body.appendChild(input);
     input.select();
-    document.execCommand('copy');
+
+    try {
+      if (document.execCommand('copy')) {
+        showBadgeIndicator();
+      }
+    } catch {
+    }
 
     input.remove();
-
-    clearTimeout(badgeTextTimeout);
-    this.setBadgeText({ text: '\u2713' });
-
-    badgeTextTimeout = setTimeout(() => {
-      this.setBadgeText({ text: '' });
-    }, 500);
   });
 }).apply(chrome.browserAction);
